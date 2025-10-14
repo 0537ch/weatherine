@@ -3,18 +3,19 @@ import type { Coordinates, WeatherData, ForecastData, GeocodingResponse } from "
 
 class WeatherAPI{
     private createURL( endpoint: string, params: Record<string, string|number>){
-       const SearchParams = new URLSearchParams({
+       const searchParams = new URLSearchParams({
         appid:API_CONFIG.API_KEY,
         ...params,
        })
 
-       return`${endpoint}?${SearchParams.toString()}`
+       return`${endpoint}?${searchParams.toString()}`
     }
     private async fetchData<T>(url:string):Promise<T> {
         const response = await fetch(url)
 
         if(!response.ok){
-            throw new Error(`Weather API Error: ${response.statusText}`)}
+            throw new Error(`Weather API Error: ${response.statusText}`)
+        }
         return response.json()
             
     }

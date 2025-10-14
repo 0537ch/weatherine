@@ -34,7 +34,34 @@ export function useGeolocation() {
                 error: null,
                 isLoading: false,
             })
-        })
+        },(error)=>{
+            let errorMessage: string
+
+            switch(error.code){
+                case error.PERMISSION_DENIED:
+                    errorMessage="Location permission denied"
+                break
+                case error.POSITION_UNAVAILABLE:
+                    errorMessage="location information unavailable"
+                break
+                case error.TIMEOUT:
+                    errorMessage="location request timed out"
+                break
+                default:
+                    errorMessage="Unknown Error occured"
+            }
+
+            setLocationData({
+                coordinates:null,
+                error:errorMessage,
+                isLoading: false,
+            })
+        },{
+            enableHighAccuracy:false,
+            timeout:5000,
+            maximumAge:0,
+        }
+    )
     }
     useEffect(() => {
         getLocation()
