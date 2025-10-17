@@ -11,7 +11,7 @@ export const WEATHER_KEYS={
 export function useWeatherQuery(coordinates:Coordinates|null){
     return useQuery({
         queryKey:WEATHER_KEYS.weather(coordinates??{lat:0,lon:0}),
-        queryFn:()=>coordinates?weatherAPI.getcurrentWeather(coordinates): null,
+        queryFn:()=>coordinates?weatherAPI.getCurrentWeather(coordinates): null,
         enabled:!!coordinates,
     })
 }
